@@ -7,6 +7,6 @@ namespace TPN1.Domain.Entities
     {
         public int SalaId { get; set; }
         public int Capacidad { get; set; }
-        public ICollection<Funciones> FuncionesNavigator { get; set; }
+        public IList<Funciones> FuncionesNavigator { get; set; }
     }
 }

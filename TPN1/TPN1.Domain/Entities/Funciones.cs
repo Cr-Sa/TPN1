@@ -12,6 +12,6 @@ namespace TPN1.Domain.Entities
         public TimeSpan Horario { get; set; }
         public Peliculas PeliculasNavigator { get; set; }
         public Salas SalasNavigator { get; set; }
-        public ICollection<Tickets> TicketsNavigator { get; set; }
+        public IList<Tickets> TicketsNavigator { get; set; }
     }
 }

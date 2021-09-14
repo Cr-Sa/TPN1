@@ -10,7 +10,7 @@ namespace TPN1.Domain.Entities
         public string Poster { get; set; }
         public string Sinopsis { get; set; }
         public string Trailer { get; set; }
-        public ICollection<Funciones> FuncionesNavigator { get; set; }
+        public IList<Funciones> FuncionesNavigator { get; set; }
 
     }
 }
