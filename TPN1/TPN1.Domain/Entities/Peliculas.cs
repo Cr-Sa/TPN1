@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TPN1.Domain.Entities
 {
@@ -10,7 +9,7 @@ namespace TPN1.Domain.Entities
         public string Poster { get; set; }
         public string Sinopsis { get; set; }
         public string Trailer { get; set; }
-        public IList<Funciones> FuncionesNavigator { get; set; }
+        public virtual IList<Funciones> Funciones { get; set; }
 
     }
 }

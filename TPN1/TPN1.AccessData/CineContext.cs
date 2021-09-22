@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TPN1.Domain.Entities;
-using System;
 
 namespace TPN1.AccessData
 {
@@ -13,7 +12,7 @@ namespace TPN1.AccessData
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-4KK02DC\SQLEXPRESS01;Database=TPN1;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=PATO\SQLEXPRESS;Database=TPN1_vFinal;Trusted_Connection=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,7 +27,7 @@ namespace TPN1.AccessData
 
 
             });
-           
+
             modelBuilder.Entity<Funciones>(entity =>
             {
                 entity.ToTable("Funciones");
@@ -38,10 +37,10 @@ namespace TPN1.AccessData
                 entity.Property(fun => fun.Fecha).IsRequired();
                 entity.Property(fun => fun.Horario).IsRequired();
 
-                entity.HasOne(pel => pel.PeliculasNavigator).WithMany(fun => fun.FuncionesNavigator);
-                entity.HasOne(sal => sal.SalasNavigator).WithMany(fun => fun.FuncionesNavigator);
+                entity.HasOne(pel => pel.Pelicula).WithMany(fun => fun.Funciones);
+                entity.HasOne(sal => sal.Sala).WithMany(fun => fun.Funciones);
             });
-            
+
             modelBuilder.Entity<Salas>(entity =>
             {
                 entity.ToTable("Salas");
@@ -49,16 +48,16 @@ namespace TPN1.AccessData
                 entity.Property(sal => sal.Capacidad).HasMaxLength(35).IsRequired();
 
             });
-         
+
             modelBuilder.Entity<Tickets>(entity =>
             {
                 entity.ToTable("Tickets");
-               
+
                 entity.HasKey(compuesta => new { compuesta.TicketId, compuesta.FuncionId });
                 entity.Property(tik => tik.Usuario).HasMaxLength(50).IsRequired();
                 entity.Property(tik => tik.FuncionId).IsRequired();
 
-                entity.HasOne(fun => fun.FuncionesNavigator).WithMany(tik => tik.TicketsNavigator);
+                entity.HasOne(fun => fun.Funcion).WithMany(tik => tik.Tickets);
 
 
             });
@@ -80,9 +79,9 @@ namespace TPN1.AccessData
             modelBuilder.Entity<Salas>().HasData(
                new Salas { SalaId = 1, Capacidad = 5 },
                new Salas { SalaId = 2, Capacidad = 15 },
-               new Salas { SalaId = 3, Capacidad = 35 }              
+               new Salas { SalaId = 3, Capacidad = 35 }
                );
-                    
+
         }
     }
 }

@@ -29,28 +29,22 @@ namespace TPN1.AccessData.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("Horario")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("Horario")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("PeliculaId")
                         .HasMaxLength(50)
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PeliculasNavigatorPeliculaId")
                         .HasColumnType("int");
 
                     b.Property<int>("SalaId")
                         .HasMaxLength(50)
                         .HasColumnType("int");
 
-                    b.Property<int?>("SalasNavigatorSalaId")
-                        .HasColumnType("int");
-
                     b.HasKey("FuncionId");
 
-                    b.HasIndex("PeliculasNavigatorPeliculaId");
+                    b.HasIndex("PeliculaId");
 
-                    b.HasIndex("SalasNavigatorSalaId");
+                    b.HasIndex("SalaId");
 
                     b.ToTable("Funciones");
                 });
@@ -224,43 +218,47 @@ namespace TPN1.AccessData.Migrations
 
             modelBuilder.Entity("TPN1.Domain.Entities.Funciones", b =>
                 {
-                    b.HasOne("TPN1.Domain.Entities.Peliculas", "PeliculasNavigator")
-                        .WithMany("FuncionesNavigator")
-                        .HasForeignKey("PeliculasNavigatorPeliculaId");
+                    b.HasOne("TPN1.Domain.Entities.Peliculas", "Pelicula")
+                        .WithMany("Funciones")
+                        .HasForeignKey("PeliculaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.HasOne("TPN1.Domain.Entities.Salas", "SalasNavigator")
-                        .WithMany("FuncionesNavigator")
-                        .HasForeignKey("SalasNavigatorSalaId");
+                    b.HasOne("TPN1.Domain.Entities.Salas", "Sala")
+                        .WithMany("Funciones")
+                        .HasForeignKey("SalaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("PeliculasNavigator");
+                    b.Navigation("Pelicula");
 
-                    b.Navigation("SalasNavigator");
+                    b.Navigation("Sala");
                 });
 
             modelBuilder.Entity("TPN1.Domain.Entities.Tickets", b =>
                 {
-                    b.HasOne("TPN1.Domain.Entities.Funciones", "FuncionesNavigator")
-                        .WithMany("TicketsNavigator")
+                    b.HasOne("TPN1.Domain.Entities.Funciones", "Funcion")
+                        .WithMany("Tickets")
                         .HasForeignKey("FuncionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("FuncionesNavigator");
+                    b.Navigation("Funcion");
                 });
 
             modelBuilder.Entity("TPN1.Domain.Entities.Funciones", b =>
                 {
-                    b.Navigation("TicketsNavigator");
+                    b.Navigation("Tickets");
                 });
 
             modelBuilder.Entity("TPN1.Domain.Entities.Peliculas", b =>
                 {
-                    b.Navigation("FuncionesNavigator");
+                    b.Navigation("Funciones");
                 });
 
             modelBuilder.Entity("TPN1.Domain.Entities.Salas", b =>
                 {
-                    b.Navigation("FuncionesNavigator");
+                    b.Navigation("Funciones");
                 });
 #pragma warning restore 612, 618
         }

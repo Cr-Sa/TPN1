@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace TPN1.Domain.Entities
 {
@@ -8,6 +7,6 @@ namespace TPN1.Domain.Entities
         public Guid TicketId { get; set; }
         public int FuncionId { get; set; }
         public string Usuario { get; set; }
-        public Funciones FuncionesNavigator { get; set; }
+        public Funciones Funcion { get; set; }
     }
 }

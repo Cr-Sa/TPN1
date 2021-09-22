@@ -9,9 +9,9 @@ namespace TPN1.Domain.Entities
         public int PeliculaId { get; set; }
         public int SalaId { get; set; }
         public DateTime Fecha { get; set; }
-        public TimeSpan Horario { get; set; }
-        public Peliculas PeliculasNavigator { get; set; }
-        public Salas SalasNavigator { get; set; }
-        public IList<Tickets> TicketsNavigator { get; set; }
+        public DateTime Horario { get; set; }
+        public Peliculas Pelicula { get; set; }
+        public Salas Sala { get; set; }
+        public virtual IList<Tickets> Tickets { get; set; }
     }
 }
